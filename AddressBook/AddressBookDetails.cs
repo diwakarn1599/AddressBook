@@ -7,12 +7,14 @@ namespace AddressBook
     class AddressBookDetails
     {
         //list for storing objects for person class
-        private static List<Person> contacts = new List<Person>();
+
+        private List<Person> contacts;
         //address book dictioanry to store values
         private static Dictionary<string, List<Person>> addressBookDictionary = new Dictionary<string, List<Person>>();
-        public static void AddMember()
+        public  void AddMember()
         {
             string addressBookName;
+            contacts = new List<Person>();
             while (true)
             {
                 Console.WriteLine("Enter The Name of the Address Book");
@@ -98,7 +100,7 @@ namespace AddressBook
         }
 
         //method for view Contacts
-        public static void ViewContacts()
+        public  void ViewContacts()
         {
             if (addressBookDictionary.Count > 0)
             {
@@ -121,7 +123,7 @@ namespace AddressBook
         }
 
         //Printing values
-        public static void PrintValues(Person x)
+        public  void PrintValues(Person x)
         {
             Console.WriteLine($"First Name : {x.firstName}");
             Console.WriteLine($"Last Name : {x.lastName}");
@@ -134,7 +136,7 @@ namespace AddressBook
         }
 
         //method for editing details
-        public static void EditDetails()
+        public  void EditDetails()
         {
             int f;//flag variable
             if (contacts.Count > 0)
@@ -245,7 +247,7 @@ namespace AddressBook
         }
 
         //method for deleting conatcts
-        public static void DeleteDetails()
+        public  void DeleteDetails()
         {
             int f = 0;
             if (contacts.Count > 0)
