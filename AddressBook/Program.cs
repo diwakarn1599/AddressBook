@@ -10,6 +10,7 @@ namespace AddressBook
             
             while (true)
             {
+                
                 Console.WriteLine("*********************************************************");
                 Console.WriteLine("1.Add member to Contact list \n2.View Members in Contact List\n3.Edit members Contacts list\n4.Delete members Contacts list\n5.Exit");
                 Console.WriteLine("Enter an option:");
@@ -33,6 +34,7 @@ namespace AddressBook
                         return;
 
                 }
+                
             }
         }
     }
