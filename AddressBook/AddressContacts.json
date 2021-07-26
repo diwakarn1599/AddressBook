@@ -1,0 +1,43 @@
+[
+  
+  {
+    "firstName": "Diwakar",
+    "lastName": "N",
+    "address": "asdgfq qert",
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "zipCode": 102345,
+    "phoneNumber": "1234567890",
+    "email": "asf@adsf"
+  },
+  {
+    "firstName": "Ronaldo",
+    "lastName": "Cr7",
+    "address": "asdgfq qert",
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "zipCode": 102345,
+    "phoneNumber": "1234567890",
+    "email": "asf@adsf"
+  },
+  {
+    "firstName": "Dhoni",
+    "lastName": "Ms",
+    "address": "asdgfq qert",
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "zipCode": 102345,
+    "phoneNumber": "1234567890",
+    "email": "asf@adsf"
+  },
+  {
+    "firstName": "Virat",
+    "lastName": "Kohli",
+    "address": "asdgfq qert",
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "zipCode": 102345,
+    "phoneNumber": "1234567890",
+    "email": "asf@adsf"
+  }
+]
