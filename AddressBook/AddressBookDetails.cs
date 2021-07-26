@@ -710,24 +710,27 @@ namespace AddressBook
             }
 
         }
-
+        /// <summary>
+        /// Read contacts from file
+        /// </summary>
         public void ReadFromCsvFile()
         {
+            //File path
             string filePath = @"C:\Users\NARD'S IDEAPAD\source\repos\AddressBook\AddressBook\AddressData.csv";
-
             try
             {
                 string abName = "Ab-TN";
                 if(File.Exists(filePath))
                 {
+                    //Stream reader for reading from csv file
                     using (var reader = new StreamReader(filePath))
                     using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                     {
+                        //fetching records from csv files
                         var csvContactsList = csv.GetRecords<Person>().ToList();
                         addressBookDictionary.Add(abName, csvContactsList);
                         Console.WriteLine("Successfully Added from file");
                     }
-
                 }
             }
             catch(Exception ex)
@@ -735,8 +738,12 @@ namespace AddressBook
                 Console.WriteLine($"Exception: {ex.Message}");
             }
         }
+        /// <summary>
+        /// Write records to csv file
+        /// </summary>
         public void WriteToCsvFile()
         {
+            //File path of csv file
             string filePath = @"C:\Users\NARD'S IDEAPAD\source\repos\AddressBook\AddressBook\AddressData.csv";
             try
             {
@@ -744,7 +751,9 @@ namespace AddressBook
                 {
                     if (addressBookDictionary.Count > 0)
                     {
+                       //initially clear the file
                         File.WriteAllText(filePath, string.Empty);
+                        //stream writer to write files
                         using (var writer = new StreamWriter(filePath))
                         using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
                         {
@@ -754,18 +763,17 @@ namespace AddressBook
                                 {
                                     contacts = new List<Person>();
                                     contacts.Add(addressBook);
+                                    //write records into csv file
                                     csvWriter.WriteRecords(contacts);
                                 }
                             }
                         }
                         Console.WriteLine("Records Written into csv file");
-                        
                     }
                     else
                     {
                         Console.WriteLine("Address Book is Empty");
                     }
-
                 }
             }
             catch (Exception ex)
