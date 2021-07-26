@@ -13,7 +13,7 @@ namespace AddressBook
             {
                 
                 Console.WriteLine("*********************************************************");
-                Console.WriteLine("1.Add member to Contact list \n2.View Members in Contact List\n3.Edit members Contacts list\n4.Delete members Contacts list\n5.Search Details\n6.Count\n7.Sort entries\n8.Read from file\n9.Save to file\n10.Exit");
+                Console.WriteLine("1.Add member to Contact list \n2.View Members in Contact List\n3.Edit members Contacts list\n4.Delete members Contacts list\n5.Search Details\n6.Count\n7.Sort entries\n8.Read from file\n9.Save to file\n10.Read form csv file\n11.Write to csv file\n12.Exit");
                 Console.WriteLine("Enter an option:");
                 switch (Convert.ToInt32(Console.ReadLine()))
                 {
@@ -45,6 +45,12 @@ namespace AddressBook
                         abd.WriteToFile();
                         break;
                     case 10:
+                        abd.ReadFromCsvFile();
+                        break;
+                    case 11:
+                        abd.WriteToCsvFile();
+                        break;
+                    case 12:
                         // to exit from main method
                         Console.WriteLine("Exited");
                         return;

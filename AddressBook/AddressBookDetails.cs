@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using CsvHelper;
+using System.Globalization;
 
 namespace AddressBook
 {
@@ -557,6 +559,9 @@ namespace AddressBook
             }
 
         }
+        /// <summary>
+        /// Sort entries based on choice
+        /// </summary>
         public void SortEntries()
         {
             Console.WriteLine("1.Sort by person name\n2.Sort by city name\n3.Sort by state name\n4.Sort by zipcode\nEnter Your option");
@@ -577,7 +582,10 @@ namespace AddressBook
 
             }
         }
-
+        /// <summary>
+        /// Sort entries in the dictionary
+        /// </summary>
+        /// <param name="check"></param>
         public void SortList(string check)
         {
             if (addressBookDictionary.Count > 0)
@@ -616,7 +624,9 @@ namespace AddressBook
             }
             
         }
-
+        /// <summary>
+        /// read data from csv and add in address book
+        /// </summary>
         public void ReadFromFile()
         {
             string filePath = @"C:\Users\NARD'S IDEAPAD\source\repos\AddressBook\AddressBook\AddressBooksText.txt";
@@ -662,39 +672,106 @@ namespace AddressBook
            
         }
 
+        /// <summary>
+        /// Write data from dictinary to text file
+        /// </summary>
         public void WriteToFile()
         {
             string filePath = @"C:\Users\NARD'S IDEAPAD\source\repos\AddressBook\AddressBook\AddressBooksText.txt";
             
             try
             {
-                if (addressBookDictionary.Count > 0)
+                if (File.Exists(filePath))
                 {
-                    File.WriteAllText(filePath, string.Empty);
-                    //printing the values in address book
-                    foreach (KeyValuePair<string, List<Person>> dict in addressBookDictionary)
+                    if (addressBookDictionary.Count > 0)
                     {
-                        File.AppendAllText(filePath,$"{dict.Key}\n");
-                        foreach (var addressBook in dict.Value)
+                        File.WriteAllText(filePath, string.Empty);
+                        //printing the values in address book
+                        foreach (KeyValuePair<string, List<Person>> dict in addressBookDictionary)
                         {
-                            string text = $"{addressBook.firstName},{addressBook.lastName},{addressBook.address},{addressBook.city},{addressBook.state},{addressBook.zipCode},{addressBook.phoneNumber},{addressBook.email}\n";
-                            File.AppendAllText(filePath, text);
+                            File.AppendAllText(filePath, $"{dict.Key}\n");
+                            foreach (var addressBook in dict.Value)
+                            {
+                                string text = $"{addressBook.firstName},{addressBook.lastName},{addressBook.address},{addressBook.city},{addressBook.state},{addressBook.zipCode},{addressBook.phoneNumber},{addressBook.email}\n";
+                                File.AppendAllText(filePath, text);
+                            }
                         }
+                        Console.WriteLine("successfully stored in file");
                     }
-                    Console.WriteLine("successfully stored in file");
+                    else
+                    {
+                        Console.WriteLine("Address Book is Empty");
+                    }
                 }
-                else
+             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+            }
+
+        }
+
+        public void ReadFromCsvFile()
+        {
+            string filePath = @"C:\Users\NARD'S IDEAPAD\source\repos\AddressBook\AddressBook\AddressData.csv";
+
+            try
+            {
+                string abName = "Ab-TN";
+                if(File.Exists(filePath))
                 {
-                    Console.WriteLine("Address Book is Empty");
+                    using (var reader = new StreamReader(filePath))
+                    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    {
+                        var csvContactsList = csv.GetRecords<Person>().ToList();
+                        addressBookDictionary.Add(abName, csvContactsList);
+                        Console.WriteLine("Successfully Added from file");
+                    }
+
                 }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+            }
+        }
+        public void WriteToCsvFile()
+        {
+            string filePath = @"C:\Users\NARD'S IDEAPAD\source\repos\AddressBook\AddressBook\AddressData.csv";
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    if (addressBookDictionary.Count > 0)
+                    {
+                        File.WriteAllText(filePath, string.Empty);
+                        using (var writer = new StreamWriter(filePath))
+                        using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                        {
+                            foreach (KeyValuePair<string, List<Person>> dict in addressBookDictionary)
+                            {
+                                foreach (var addressBook in dict.Value)
+                                {
+                                    contacts = new List<Person>();
+                                    contacts.Add(addressBook);
+                                    csvWriter.WriteRecords(contacts);
+                                }
+                            }
+                        }
+                        Console.WriteLine("Records Written into csv file");
+                        
+                    }
+                    else
+                    {
+                        Console.WriteLine("Address Book is Empty");
+                    }
 
-
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Exception: {ex.Message}");
             }
-
         }
     }
 }
